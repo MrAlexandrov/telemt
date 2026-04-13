@@ -1,3 +1,18 @@
+.PHONY: install
+install:
+	curl -fsSL https://get.docker.com | sh
+	sudo usermod -aG docker ${USER}
+	newgrp docker
+
+MY_IP := $(shell curl -s ifconfig.me)
+RANDOM_CODE := $(shell openssl rand -hex 16)
+
+.PHONY: template
+template:
+	sed -i 's/<your_virtual_machine_ip>/${MY_IP}/g' telemt.toml
+	sed -i 's/<your_generated_code>/${RANDOM_CODE}/g' telemt.toml
+
+
 DOCKER_COMPOSE = docker compose
 
 .PHONY: up
