@@ -1,0 +1,46 @@
+# === General Settings ===
+[general]
+use_middle_proxy = true
+middle_proxy_nat_probe = true
+log_level = "normal"
+
+[general.modes]
+classic = false
+secure = false
+tls = true
+
+[general.links]
+show = "*"
+public_host = "<your_virtual_machine_ip>"
+public_port = 443
+
+# === Server Binding ===
+[server]
+port = 443
+listen_addr_ipv4 = "0.0.0.0"
+
+[[server.listeners]]
+ip = "0.0.0.0"
+announce = "<your_virtual_machine_ip>"
+
+# === Anti-Censorship & Masking ===
+[censorship]
+tls_domain = "ya.ru"
+mask = true
+mask_port = 443
+tls_emulation = true
+tls_front_dir = "tlsfront"
+server_hello_delay_min_ms = 50
+server_hello_delay_max_ms = 150
+tls_full_cert_ttl_secs = 0
+alpn_enforce = true
+
+# === Users ===
+[access.users]
+# Тут можно указывать несколько пользователей
+all = "<your_generated_code>"
+# someone_else = "<another_generated_code>"
+
+# === Transport (для обхода проблем с MTU) ===
+[transport]
+mtu = 1200
