@@ -13,10 +13,6 @@ template:
 	sed -i "s/<your_generated_code>/$$RANDOM_CODE/g" telemt.toml && \
 	echo "Config created: IP=$$MY_IP"
 
-.PHONY: grep
-grep:
-	${DOCKER_COMPOSE} logs | grep "EE-TLS" -B 1
-
 
 DOCKER_COMPOSE = docker compose
 
@@ -37,6 +33,9 @@ restart:
 	$(DOCKER_COMPOSE) down
 	$(DOCKER_COMPOSE) up -d --build
 
+.PHONY: grep
+grep:
+	${DOCKER_COMPOSE} logs | grep "EE-TLS" -B 1
 
 .PHONY: amount
 amount:
