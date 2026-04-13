@@ -19,6 +19,9 @@ public_port = 443
 port = 443
 listen_addr_ipv4 = "0.0.0.0"
 
+metrics_port=9090
+metrics_whitelist = ["127.0.0.0/8", "172.16.0.0/12", "192.168.0.0/16", "10.0.0.0/8"]
+
 [[server.listeners]]
 ip = "0.0.0.0"
 announce = "<your_virtual_machine_ip>"
