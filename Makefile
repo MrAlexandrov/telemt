@@ -4,13 +4,14 @@ install:
 	sudo usermod -aG docker ${USER}
 	newgrp docker
 
-MY_IP := $(shell curl -s ifconfig.me)
-RANDOM_CODE := $(shell openssl rand -hex 16)
-
 .PHONY: template
 template:
-	sed -i 's/<your_virtual_machine_ip>/${MY_IP}/g' telemt.toml
-	sed -i 's/<your_generated_code>/${RANDOM_CODE}/g' telemt.toml
+	@MY_IP=$$(curl -s ifconfig.me) && \
+	RANDOM_CODE=$$(openssl rand -hex 16) && \
+	cp telemt.toml.template telemt.toml && \
+	sed -i "s/<your_virtual_machine_ip>/$$MY_IP/g" telemt.toml && \
+	sed -i "s/<your_generated_code>/$$RANDOM_CODE/g" telemt.toml && \
+	echo "Config created: IP=$$MY_IP"
 
 
 DOCKER_COMPOSE = docker compose
