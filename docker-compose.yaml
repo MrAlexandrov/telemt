@@ -10,9 +10,9 @@ services:
     volumes:
       - ./telemt.toml:/etc/telemt.toml:ro
 
-    ports:
-      - "443:443/tcp"
-      - "127.0.0.1:9090:9090/tcp"
+    #ports:
+      #- "443:443/tcp"
+      #- "127.0.0.1:9090:9090/tcp"
 
     security_opt:
       - no-new-privileges:true
@@ -24,7 +24,7 @@ services:
     tmpfs:
       - /tmp:rw,nosuid,nodev,noexec,size=16m
 
-    #network_mode: host
+    network_mode: host
 
     deploy:
       resources:
