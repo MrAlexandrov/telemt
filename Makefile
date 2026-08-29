@@ -101,4 +101,4 @@ status:
 
 .PHONY: metrics
 metrics:
-	curl -s http://127.0.0.1:9090/metrics | grep 'user='
+	curl -s http://127.0.0.1:9092/metrics | grep 'user='
