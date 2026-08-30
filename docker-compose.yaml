@@ -9,6 +9,7 @@ services:
 
     volumes:
       - ./telemt.toml:/etc/telemt.toml
+      - ./runtime:/etc/telemt
 
     #ports:
       #- "443:443/tcp"
