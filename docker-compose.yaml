@@ -8,12 +8,15 @@ services:
       RUST_LOG: "info"
 
     volumes:
-      - ./telemt.toml:/etc/telemt.toml
+      - ./telemt.toml:/etc/telemt.toml:ro
       - ./runtime:/etc/telemt
 
-    #ports:
-      #- "443:443/tcp"
-      #- "127.0.0.1:9090:9090/tcp"
+    # Only the proxy endpoint is public. Administrative and metrics endpoints
+    # stay reachable from the host but are not published externally.
+    ports:
+      - "443:443/tcp"
+      - "127.0.0.1:9091:9091/tcp"
+      - "127.0.0.1:9092:9092/tcp"
 
     security_opt:
       - no-new-privileges:true
@@ -24,7 +27,8 @@ services:
     tmpfs:
       - /tmp:rw,nosuid,nodev,noexec,size=16m
 
-    network_mode: host
+    networks:
+      - telemt-net
 
     deploy:
       resources:
@@ -45,3 +49,10 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+
+networks:
+  telemt-net:
+    name: telemt-net
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: "1376"
